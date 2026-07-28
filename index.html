@@ -1,145 +1,517 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Fiji Campus Bus & Weather Dashboard</title>
 
 <style>
-    /* General page styling */
-    body {
-        font-family: Arial, Helvetica, sans-serif;
-        background: linear-gradient(to right, #4facfe, #00f2fe);
-        margin: 0;
-        padding: 20px;
-    }
 
-    .container {
-        max-width: 700px;
-        margin: auto;
-        background: white;
-        padding: 25px;
-        border-radius: 12px;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    }
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(to right, #4facfe, #00f2fe);
+    margin: 0;
+    padding: 20px;
+}
 
-    h1 {
-        text-align: center;
-        color: #0077b6;
-    }
 
-    label {
-        font-weight: bold;
-    }
+.container {
 
-    input {
-        width: 100%;
-        padding: 10px;
-        margin-top: 8px;
-        margin-bottom: 15px;
-        border-radius: 6px;
-        border: 1px solid #ccc;
-        font-size: 16px;
-        box-sizing: border-box;
-    }
+    max-width: 700px;
+    margin: auto;
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.25);
 
-    button {
-        width: 100%;
-        padding: 12px;
-        background: #0077b6;
-        color: white;
-        border: none;
-        border-radius: 6px;
-        font-size: 16px;
-        cursor: pointer;
-    }
+}
 
-    button:hover {
-        background: #005f8d;
-    }
 
-    .card {
-        margin-top: 20px;
-        padding: 15px;
-        border-radius: 8px;
-        background: #f4f9ff;
-        border-left: 5px solid #0077b6;
-    }
+h1 {
 
-    #result {
-        font-size: 18px;
-        font-weight: bold;
-        color: green;
-    }
+    text-align: center;
+    color: #0077b6;
+
+}
+
+
+h2 {
+
+    color: #005f8d;
+
+}
+
+
+label {
+
+    font-weight: bold;
+
+}
+
+
+input, select {
+
+    width: 100%;
+    padding: 12px;
+    margin-top: 8px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    box-sizing: border-box;
+
+}
+
+
+button {
+
+    width: 100%;
+    padding: 12px;
+    background: #0077b6;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+
+}
+
+
+button:hover {
+
+    background:#005f8d;
+
+}
+
+
+.card {
+
+    margin-top:20px;
+    padding:15px;
+    background:#f4f9ff;
+    border-left:5px solid #0077b6;
+    border-radius:8px;
+
+}
+
+
+#result {
+
+    color:green;
+    font-size:18px;
+    font-weight:bold;
+
+}
+
+
+.footer {
+
+    text-align:center;
+    margin-top:20px;
+    font-size:12px;
+    color:gray;
+
+}
+
+
 </style>
+
 </head>
+
 
 <body>
 
+
 <div class="container">
 
-    <h1>🚌 Fiji Campus Bus & Weather Dashboard 🌤️</h1>
 
-    <!-- Bus Fare Calculator -->
-    <h2>Bus Fare Calculator</h2>
+<h1>
+🚌 Fiji Campus Bus & Weather Dashboard 🌤️
+</h1>
 
-    <label for="budget">Enter your bus fare budget (FJD):</label>
-    <input type="number" id="budget" placeholder="Example: 15">
 
-    <button onclick="calculateRides()">Calculate Bus Rides</button>
 
-    <div class="card">
-        <p id="result">Enter your budget and click the button.</p>
-    </div>
+<!-- =========================
+BUS FARE CALCULATOR
+========================= -->
 
-    <!-- Weather Section -->
-    <h2>Today's Weather in Suva</h2>
 
-    <div class="card">
-        <p><strong>Location:</strong> Nadi, Fiji</p>
-        <p><strong>Forecast:</strong> 🌤️ Partly cloudy</p>
-        <p><strong>Temperature:</strong> 30°C</p>
-        <p><strong>Humidity:</strong> 90%</p>
-        <p><strong>Wind:</strong> 18 km/h</p>
-    </div>
+<h2>Bus Fare Calculator</h2>
+
+
+<label>
+Enter your bus fare budget (FJD):
+</label>
+
+
+<input 
+type="number"
+id="budget"
+placeholder="Example: 10">
+
+
+<button onclick="calculateRides()">
+Calculate Bus Rides
+</button>
+
+
+
+<div class="card">
+
+<p id="result">
+Enter your budget and click calculate.
+</p>
 
 </div>
 
+
+
+
+
+<!-- =========================
+WEATHER DASHBOARD
+========================= -->
+
+
+<h2>
+Fiji Weather Forecast
+</h2>
+
+
+
+<label>
+Select Location:
+</label>
+
+
+<select id="locationSelect" onchange="changeWeather()">
+
+<option value="suva">
+Suva
+</option>
+
+
+<option value="ba">
+Ba
+</option>
+
+
+<option value="nausori">
+Nausori
+</option>
+
+
+<option value="nadi">
+Nadi
+</option>
+
+
+<option value="lautoka">
+Lautoka
+</option>
+
+
+<option value="labasa">
+Labasa
+</option>
+
+
+<option value="savusavu">
+Savusavu
+</option>
+
+
+</select>
+
+
+
+<div class="card" id="weather">
+
+
+<p>
+<strong>📍 Location:</strong> Suva, Fiji
+</p>
+
+
+<p>
+<strong>🌤 Forecast:</strong> Partly Cloudy
+</p>
+
+
+<p>
+<strong>🌡 Temperature:</strong> 27°C
+</p>
+
+
+<p>
+<strong>💧 Humidity:</strong> 82%
+</p>
+
+
+<p>
+<strong>💨 Wind:</strong> 18 km/h
+</p>
+
+
+</div>
+
+
+
+<div class="footer">
+
+Sample weather data for demonstration purposes.
+
+</div>
+
+
+</div>
+
+
+
+
 <script>
+
+
 /*
-    This function calculates how many bus rides
-    a student can afford based on their budget.
+=========================================
+BUS FARE CALCULATOR
 
-    Assumption:
-    One bus ride costs FJD $1.50
+Assumption:
+1 bus ride = FJD $1.50
+
+=========================================
 */
-function calculateRides() {
 
-    // Get the user's budget from the input box
-    let budget = parseFloat(document.getElementById("budget").value);
 
-    // Check if the user entered a valid number
-    if (isNaN(budget) || budget < 0) {
-        document.getElementById("result").innerHTML =
-            "Please enter a valid budget.";
-        return;
-    }
+function calculateRides(){
 
-    // Cost per ride
-    const fare = 1.50;
 
-    // Calculate whole rides only
-    let rides = Math.floor(budget / fare);
+let budget =
+parseFloat(document.getElementById("budget").value);
 
-    // Calculate remaining money
-    let remaining = (budget - rides * fare).toFixed(2);
 
-    // Display the result
-    document.getElementById("result").innerHTML =
-        `With FJD $${budget.toFixed(2)}, you can afford <strong>${rides}</strong> bus ride(s).<br>
-        Money left: <strong>FJD $${remaining}</strong>`;
+
+if(isNaN(budget) || budget < 0){
+
+
+document.getElementById("result").innerHTML =
+"Please enter a valid amount.";
+
+
+return;
+
+
 }
+
+
+
+const fare = 1.50;
+
+
+
+let rides =
+Math.floor(budget / fare);
+
+
+
+let remaining =
+(budget - (rides * fare)).toFixed(2);
+
+
+
+document.getElementById("result").innerHTML =
+
+`
+With FJD $${budget.toFixed(2)}
+you can afford:
+
+<br>
+
+<strong>
+${rides} bus ride(s)
+</strong>
+
+<br>
+
+Money remaining:
+<strong>
+FJD $${remaining}
+</strong>
+
+`;
+
+}
+
+
+
+
+/*
+=========================================
+FIJI WEATHER DATA
+
+Example forecast values
+stored inside JavaScript.
+
+=========================================
+*/
+
+
+const weatherData = {
+
+
+suva:{
+
+location:"Suva",
+forecast:"🌤 Partly Cloudy",
+temp:"27°C",
+humidity:"82%",
+wind:"18 km/h"
+
+},
+
+
+
+ba:{
+
+location:"Ba",
+forecast:"☀️ Sunny",
+temp:"31°C",
+humidity:"70%",
+wind:"15 km/h"
+
+},
+
+
+
+nausori:{
+
+location:"Nausori",
+forecast:"🌦 Light Rain",
+temp:"26°C",
+humidity:"90%",
+wind:"12 km/h"
+
+},
+
+
+
+nadi:{
+
+location:"Nadi",
+forecast:"☀️ Clear Skies",
+temp:"32°C",
+humidity:"65%",
+wind:"20 km/h"
+
+},
+
+
+
+lautoka:{
+
+location:"Lautoka",
+forecast:"⛅ Mostly Cloudy",
+temp:"29°C",
+humidity:"75%",
+wind:"17 km/h"
+
+},
+
+
+
+labasa:{
+
+location:"Labasa",
+forecast:"🌧 Heavy Showers",
+temp:"28°C",
+humidity:"88%",
+wind:"22 km/h"
+
+},
+
+
+
+savusavu:{
+
+location:"Savusavu",
+forecast:"🌦 Tropical Showers",
+temp:"27°C",
+humidity:"85%",
+wind:"14 km/h"
+
+}
+
+
+};
+
+
+
+
+/*
+=========================================
+CHANGE WEATHER WHEN DROPDOWN CHANGES
+=========================================
+*/
+
+
+function changeWeather(){
+
+
+let selected =
+
+document.getElementById("locationSelect").value;
+
+
+
+let weather = weatherData[selected];
+
+
+
+document.getElementById("weather").innerHTML =
+
+`
+
+<p>
+<strong>📍 Location:</strong>
+${weather.location}, Fiji
+</p>
+
+
+<p>
+<strong>🌤 Forecast:</strong>
+${weather.forecast}
+</p>
+
+
+<p>
+<strong>🌡 Temperature:</strong>
+${weather.temp}
+</p>
+
+
+<p>
+<strong>💧 Humidity:</strong>
+${weather.humidity}
+</p>
+
+
+<p>
+<strong>💨 Wind:</strong>
+${weather.wind}
+</p>
+
+`;
+
+
+}
+
+
 </script>
 
+
 </body>
+
 </html>
